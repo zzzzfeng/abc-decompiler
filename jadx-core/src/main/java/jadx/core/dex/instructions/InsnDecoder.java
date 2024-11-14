@@ -250,6 +250,9 @@ public class InsnDecoder {
 				return arith2(insn, ArithOp.EXP);
 
 			// isfalse
+			// callruntime.isfalse
+			case 0x13fb:
+			case 0x14fb:
 			case 0x23:
 			case 0x24: {
 				MethodInfo mthInfo = MethodInfo.fromAsm(root, insn.getAsmItem(), 1, nOp == 0x24 ? "isfalse" : "istrue");
@@ -464,6 +467,9 @@ public class InsnDecoder {
 			}
 
 			// ldexternalmodulevar
+			// callruntime.ldlazymodulevar
+			case 0x16fb:
+			case 0x15fb:
 			case 0x7e:
 				return ldexternalmodulevar(insn, asmItem, accRegister, false);
 
@@ -593,6 +599,7 @@ public class InsnDecoder {
 						InsnArg.reg(accRegister, ArgType.OBJECT), InsnArg.reg(accRegister, ArgType.OBJECT));
 
 			case 0xdb:
+			case 0xdc:
 				return makePutField(asmItem, getRegisterByOpIndex(asmItem, 3), accRegister, 2);
 
 			case 0xd6:
